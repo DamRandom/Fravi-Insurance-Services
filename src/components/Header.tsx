@@ -1,13 +1,52 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 10);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="py-4 px-6 bg-white shadow flex justify-between items-center">
-      <h1 className="text-lg font-bold">Fravi Insurance</h1>
-      <nav className="space-x-4 text-sm">
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">FAQ</a>
-        <a href="#">Contact</a>
-      </nav>
+    <header
+      className={`bg-[var(--color-white)] shadow-sm sticky top-0 z-50 border-b border-gray-100 transition-all duration-300 ${
+        scrolled ? "py-2" : "py-4"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-8 flex justify-between items-center transition-all duration-300">
+        {/* Logo */}
+        <div className={`transition-all duration-300 ${scrolled ? "w-[150px]" : "w-[180px]"}`}>
+          <Image
+            src="/images/logo.png"
+            alt="Fravi Insurance Logo"
+            width={500}
+            height={70}
+            priority
+            className="w-full h-auto object-contain"
+          />
+        </div>
+
+        {/* Nav */}
+        <nav className="flex items-center space-x-8 text-[15px] font-medium text-[var(--color-primary)]">
+          {["Home", "Services", "FAQ", "Contact"].map((item) => (
+            <a
+              key={item}
+              href="#"
+              className="relative pb-1 transition-all duration-200 hover:text-[var(--color-accent)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[var(--color-accent)] after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >
+              {item}
+            </a>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }
