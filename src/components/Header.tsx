@@ -4,26 +4,32 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 10);
-    }
+    const trigger = document.getElementById("navbar-trigger");
+    if (!trigger) return;
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(trigger);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <header
-      className={`bg-[var(--color-white)] shadow-sm sticky top-0 z-50 border-b border-gray-100 transition-all duration-300 ${
-        scrolled ? "py-2" : "py-4"
+      className={`bg-[var(--color-white)] border-b border-gray-100 shadow-sm sticky top-0 z-50 transition-all duration-300 ${
+        isSticky ? "py-2" : "py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 flex justify-between items-center transition-all duration-300">
         {/* Logo */}
-        <div className={`transition-all duration-300 ${scrolled ? "w-[150px]" : "w-[180px]"}`}>
+        <div className={`transition-all duration-300 ${isSticky ? "w-[140px]" : "w-[180px]"}`}>
           <Image
             src="/images/logo.png"
             alt="Fravi Insurance Logo"
