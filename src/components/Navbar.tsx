@@ -5,8 +5,15 @@ import Image from "next/image";
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasMounted) return;
+
     const trigger = document.getElementById("navbar-trigger");
     if (!trigger) return;
 
@@ -19,7 +26,9 @@ export default function Header() {
 
     observer.observe(trigger);
     return () => observer.disconnect();
-  }, []);
+  }, [hasMounted]);
+
+  if (!hasMounted) return null;
 
   return (
     <header
