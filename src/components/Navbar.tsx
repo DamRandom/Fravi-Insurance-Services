@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Header() {
+export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -18,9 +18,7 @@ export default function Header() {
     if (!trigger) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSticky(!entry.isIntersecting);
-      },
+      ([entry]) => setIsSticky(!entry.isIntersecting),
       { threshold: 0 }
     );
 
@@ -32,12 +30,11 @@ export default function Header() {
 
   return (
     <header
-      className={`bg-[var(--color-white)] border-b border-gray-100 shadow-sm sticky top-0 z-50 transition-all duration-300 ${
-        isSticky ? "py-2" : "py-5"
+      className={`bg-[var(--color-white)] border-b border-gray-100 sticky top-0 z-50 transition-all duration-300 ${
+        isSticky ? "py-2 shadow-md" : "py-5 shadow-lg"
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 flex justify-between items-center transition-all duration-300">
-        {/* Logo */}
         <div className={`transition-all duration-300 ${isSticky ? "w-[140px]" : "w-[180px]"}`}>
           <Image
             src="/images/logo.png"
@@ -49,7 +46,6 @@ export default function Header() {
           />
         </div>
 
-        {/* Nav */}
         <nav className="flex items-center space-x-8 text-[15px] font-medium text-[var(--color-primary)]">
           {["Home", "Services", "FAQ", "Contact"].map((item) => (
             <a
