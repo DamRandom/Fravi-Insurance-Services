@@ -83,7 +83,7 @@ export default function Hero() {
 
           {/* Image with shadow for depth */}
           <motion.div
-            className="w-64 h-40 relative rounded-md shadow-[0_10px_20px_rgba(0,0,0,0.5)] overflow-hidden"
+            className="w-64 h-40 relative rounded-md shadow-[0_10px_20px_rgba(0,0,0,0.5)] overflow-hidden ml-8"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -127,11 +127,7 @@ export default function Hero() {
       <div className="z-10 hidden md:flex flex-col gap-4 pr-4">
         {["auto", "home", "business"].map((key) => {
           const Icon =
-            key === "auto"
-              ? FaCarAlt
-              : key === "home"
-              ? FaHome
-              : FaBriefcase;
+            key === "auto" ? FaCarAlt : key === "home" ? FaHome : FaBriefcase;
           const isActive = active === key;
           return (
             <button
