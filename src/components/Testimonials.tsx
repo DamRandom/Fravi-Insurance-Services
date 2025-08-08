@@ -27,7 +27,7 @@ function Star({ filled }: { filled: boolean }) {
   return (
     <svg
       aria-hidden="true"
-      className={`w-5 h-5 ${filled ? "text-yellow-400" : "text-gray-500/40"}`}
+      className={`w-4 h-4 ${filled ? "text-yellow-400" : "text-gray-300"}`}
       fill="currentColor"
       viewBox="0 0 20 20"
     >
@@ -38,37 +38,41 @@ function Star({ filled }: { filled: boolean }) {
 
 export default function Testimonials() {
   return (
-    <section className="bg-[#06061B] text-white py-20 px-6 md:px-12">
+    <section className="bg-white text-[var(--color-black)] py-20 px-6 md:px-12">
       <motion.h2
-        className="text-4xl font-extrabold mb-16 text-center drop-shadow-lg"
+        className="text-4xl md:text-5xl font-extrabold mb-14 text-center text-[var(--color-primary)]"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
         Real Customers. Real Quotes.
       </motion.h2>
 
-      <div className="max-w-5xl mx-auto space-y-16">
+      <div className="max-w-4xl mx-auto space-y-16">
         {testimonials.map(({ quote, name, rating }, i) => (
-          <motion.div
+          <motion.figure
             key={i}
-            className="relative pl-10 border-l-4 border-[var(--color-accent)]"
+            className="relative pl-6 border-l-4 border-[var(--color-accent)]"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.3 + i * 0.2, duration: 0.5 }}
           >
-            <p className="text-xl italic leading-relaxed mb-4 before:content-['“'] before:text-[3rem] before:leading-none before:align-top before:text-[var(--color-accent)]">
+            <blockquote className="text-lg md:text-xl italic text-gray-800 leading-relaxed mb-3">
+              <span className="text-[3rem] text-[var(--color-accent)] leading-none align-top">“</span>
               {quote}
-            </p>
-            <div className="flex justify-between items-center">
-              <footer className="font-semibold text-[var(--color-accent)]">{name}</footer>
+            </blockquote>
+
+            <figcaption className="flex justify-between items-center">
+              <span className="font-semibold text-[var(--color-accent)]">{name}</span>
               <div className="flex space-x-1">
                 {[...Array(5)].map((_, idx) => (
                   <Star key={idx} filled={idx < rating} />
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </figcaption>
+          </motion.figure>
         ))}
       </div>
     </section>

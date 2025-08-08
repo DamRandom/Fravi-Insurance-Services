@@ -11,12 +11,6 @@ export default function HomePage() {
       <Navbar />
       <WhyUs />
       <Testimonials />
-
-      <div
-        id="navbar-trigger"
-        className="h-0 overflow-hidden opacity-0 pointer-events-none absolute"
-      />
-
       <Footer />
     </>
   );
