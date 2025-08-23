@@ -48,7 +48,7 @@ export default function Services() {
   return (
     <section className="bg-white py-28 px-6 md:px-20 text-[var(--color-black)]">
       <motion.h2
-        className="text-4xl md:text-5xl font-extrabold mb-16 text-center text-[var(--color-primary)]"
+        className="text-4xl md:text-5xl font-extrabold mb-20 text-center text-[var(--color-primary)]"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -57,17 +57,17 @@ export default function Services() {
         Our Services
       </motion.h2>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-6xl mx-auto">
         {/* Botones */}
         <button
           onClick={prevSlide}
-          className="absolute left-[-50px] md:left-[-40px] top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-105 transition-transform z-10"
+          className="absolute -left-6 md:-left-12 top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-110 transition-transform"
         >
           <FaChevronLeft />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-[-50px] md:right-[-40px] top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-105 transition-transform z-10"
+          className="absolute -right-6 md:-right-12 top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-110 transition-transform"
         >
           <FaChevronRight />
         </button>
@@ -75,11 +75,11 @@ export default function Services() {
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col md:flex-row items-start gap-12"
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col md:flex-row items-center gap-12 md:gap-16 p-6 md:p-10 rounded-xl"
           >
             {/* Tarjeta de imagen */}
             <motion.div
@@ -98,19 +98,23 @@ export default function Services() {
             </motion.div>
 
             {/* Información resumida */}
-            <div className="md:w-1/2 flex flex-col gap-4 text-center md:text-left">
-              <h3 className="text-3xl md:text-4xl font-bold">{services[index].title}</h3>
-              {services[index].highlights.map((point, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="text-gray-600 leading-relaxed"
-                >
-                  {point}
-                </motion.p>
-              ))}
+            <div className="md:w-1/2 flex flex-col gap-5 text-center md:text-left">
+              <h3 className="text-3xl md:text-4xl font-bold mb-2">
+                {services[index].title}
+              </h3>
+              <div className="flex flex-col gap-3">
+                {services[index].highlights.map((point, i) => (
+                  <motion.p
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="text-gray-600 leading-relaxed"
+                  >
+                    {point}
+                  </motion.p>
+                ))}
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
