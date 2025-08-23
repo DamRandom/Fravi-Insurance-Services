@@ -2,39 +2,52 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   {
     title: "Auto Insurance",
-    highlights: [
-      "Full protection against collisions, theft, and third-party damage.",
-      "24/7 roadside assistance for peace of mind.",
-      "Flexible plans to fit your needs and budget.",
-      "Discounts for safe driving history.",
+    subtitle: "Drive with total peace of mind",
+    offer: "From $29.99/mo",
+    features: [
+      "✔ Full collision & theft coverage",
+      "✔ 24/7 roadside assistance",
+      "✔ Free replacement car during repairs",
+      "✔ Safe driver discounts up to 40%",
     ],
-    image: "/images/services/car-insurance.jpg",
+    cta: "Get Auto Insurance",
+    bg: "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]",
+    icon: "/icons/auto.png",
   },
   {
     title: "Home Insurance",
-    highlights: [
-      "Coverage for fire, theft, natural disasters, and accidents.",
-      "Quick emergency assistance and replacement of valuables.",
-      "Liability protection for visitors and guests.",
-      "Secure your home and your peace of mind.",
+    subtitle: "Protect your family & property",
+    offer: "From $39.99/mo",
+    features: [
+      "✔ Fire, theft & natural disaster coverage",
+      "✔ Emergency response in under 30 min",
+      "✔ Liability protection for visitors",
+      "✔ Free smart-home security kit",
     ],
-    image: "/images/services/home-insurance.jpg",
+    cta: "Secure Your Home",
+    bg: "bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-primary)]",
+    icon: "/icons/home.png",
   },
   {
     title: "Business Insurance",
-    highlights: [
-      "Protect property, employees, and business continuity.",
-      "Financial loss coverage from interruptions.",
-      "Plans for all business sizes and sectors.",
-      "Focus on growth while we handle risks.",
+    subtitle: "Protect your growth & future",
+    offer: "From $59.99/mo",
+    features: [
+      "✔ Property & employee coverage",
+      "✔ Income protection from interruptions",
+      "✔ Tailored plans for every industry",
+      "✔ Dedicated risk advisor included",
     ],
-    image: "/images/services/business-insurance.jpg",
+    cta: "Protect Your Business",
+    bg: "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]",
+    icon: "/icons/business.png",
   },
 ];
 
@@ -57,19 +70,19 @@ export default function Services() {
         Our Services
       </motion.h2>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative max-w-5xl mx-auto">
         {/* Botones */}
         <button
           onClick={prevSlide}
-          className="absolute -left-6 md:-left-12 top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-110 transition-transform"
+          className="absolute -left-6 md:-left-12 top-1/2 -translate-y-1/2 p-2 hover:scale-125 transition-transform"
         >
-          <FaChevronLeft />
+          <FaChevronLeft className="text-[var(--color-primary)] text-3xl" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute -right-6 md:-right-12 top-1/2 -translate-y-1/2 p-4 bg-[var(--color-accent)] text-black rounded-full shadow-lg hover:scale-110 transition-transform"
+          className="absolute -right-6 md:-right-12 top-1/2 -translate-y-1/2 p-2 hover:scale-125 transition-transform"
         >
-          <FaChevronRight />
+          <FaChevronRight className="text-[var(--color-primary)] text-3xl" />
         </button>
 
         <AnimatePresence mode="wait">
@@ -79,42 +92,56 @@ export default function Services() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col md:flex-row items-center gap-12 md:gap-16 p-6 md:p-10 rounded-xl"
+            className={`${services[index].bg} text-white flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 p-10 rounded-2xl shadow-2xl`}
           >
-            {/* Tarjeta de imagen */}
-            <motion.div
-              className="md:w-1/2 w-full rounded-lg overflow-hidden shadow-lg"
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src={services[index].image}
-                alt={services[index].title}
-                width={600}
-                height={400}
-                className="object-cover w-full h-80 md:h-[28rem]"
-              />
-            </motion.div>
-
-            {/* Información resumida */}
-            <div className="md:w-1/2 flex flex-col gap-5 text-center md:text-left">
-              <h3 className="text-3xl md:text-4xl font-bold mb-2">
+            {/* Texto promocional */}
+            <div className="flex-1 flex flex-col gap-6">
+              <h3 className="text-3xl md:text-4xl font-bold">
                 {services[index].title}
               </h3>
-              <div className="flex flex-col gap-3">
-                {services[index].highlights.map((point, i) => (
+              <p className="text-lg opacity-90">{services[index].subtitle}</p>
+              <p className="text-2xl font-extrabold">{services[index].offer}</p>
+
+              <div className="flex flex-col gap-2 text-sm md:text-base">
+                {services[index].features.map((point, i) => (
                   <motion.p
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="text-gray-600 leading-relaxed"
+                    className="flex items-center gap-2"
                   >
+                    <CheckCircle className="w-5 h-5 text-white" />
                     {point}
                   </motion.p>
                 ))}
               </div>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-6 px-6 py-3 bg-white text-black font-bold rounded-xl shadow-lg hover:bg-gray-200 transition"
+              >
+                {services[index].cta}
+              </motion.button>
+            </div>
+
+            {/* Lado visual con ícono local */}
+            <div className="flex-1 flex items-center justify-center">
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="w-40 h-40 md:w-56 md:h-56 bg-white rounded-full flex items-center justify-center shadow-lg"
+              >
+                <Image
+                  src={services[index].icon}
+                  alt={`${services[index].title} icon`}
+                  width={120}
+                  height={120}
+                  className="object-contain"
+                />
+              </motion.div>
             </div>
           </motion.div>
         </AnimatePresence>
