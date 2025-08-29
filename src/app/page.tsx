@@ -9,8 +9,8 @@ import Services from "@/components/Services";
 export default function HomePage() {
   return (
     <>
-      <Hero />
       <Navbar />
+      <Hero />
       <AboutUs />
       <WhyUs />
       <Services />
