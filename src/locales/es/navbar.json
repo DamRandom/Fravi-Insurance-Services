@@ -1,0 +1,11 @@
+{
+  "navLinks": [
+    { "href": "#about", "label": "Acerca de" },
+    { "href": "#options", "label": "Planes" },
+    { "href": "#blog", "label": "Recursos" },
+    { "href": "#franchise", "label": "Franquicia" },
+    { "href": "#careers", "label": "Carreras" }
+  ],
+  "location": "Tu ubicación",
+  "language": "ES"
+}
