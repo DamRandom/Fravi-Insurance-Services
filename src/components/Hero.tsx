@@ -51,13 +51,11 @@ export default function Hero() {
 
   useEffect(() => {
     if (!isAuto) return;
-
     const id = window.setTimeout(() => {
       const idx = services.findIndex((s) => s.key === active);
       const next = services[(idx + 1) % services.length].key;
       setActive(next);
     }, displayMs);
-
     return () => clearTimeout(id);
   }, [active, isAuto, displayMs]);
 
@@ -83,7 +81,7 @@ export default function Hero() {
 
   return (
     <section className="h-[85vh] relative px-6 py-10 flex items-center justify-between overflow-hidden">
-      {/* Fondo */}
+      {/* --- Background --- */}
       <div className="absolute inset-0 -z-10">
         <Image
           src="/images/hero-bg.png"
@@ -92,14 +90,14 @@ export default function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#292E30]/80 to-[#0A0F12]/90 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#06061B]/80 to-[#101031]/90 backdrop-blur-sm" />
       </div>
 
-      {/* Contenido principal */}
+      {/* --- Main content --- */}
       <AnimatePresence mode="wait">
         <motion.div
           key={active}
-          className="z-10 max-w-[600px] w-full space-y-6 text-[#E6C878]"
+          className="z-10 max-w-[600px] w-full space-y-6 text-[#1A3D8F]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -107,7 +105,7 @@ export default function Hero() {
         >
           {/* Title */}
           <motion.h1
-            className="text-4xl md:text-5xl font-[TrajanPro] uppercase tracking-wide leading-tight text-left drop-shadow-[0_8px_10px_rgba(0,0,0,0.5)] text-gold"
+            className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-left text-[#1A3D8F]"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 40 }}
@@ -118,7 +116,7 @@ export default function Hero() {
 
           {/* Description */}
           <motion.p
-            className="text-gray-200/90 text-md md:text-lg font-[Inter] text-left leading-relaxed drop-shadow-[0_4px_6px_rgba(0,0,0,0.35)]"
+            className="text-base md:text-lg text-white font-normal text-left leading-relaxed"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -30 }}
@@ -127,9 +125,9 @@ export default function Hero() {
             {current.description}
           </motion.p>
 
-          {/* Imagen */}
+          {/* Image */}
           <motion.div
-            className="w-64 h-40 relative rounded-md shadow-[0_10px_20px_rgba(0,0,0,0.6)] overflow-hidden ml-8"
+            className="w-64 h-40 relative rounded-lg shadow-md overflow-hidden ml-8"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
@@ -143,7 +141,7 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Input + botón */}
+          {/* Input + button */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 items-center sm:items-start"
             initial={{ opacity: 0, y: 22 }}
@@ -154,10 +152,10 @@ export default function Hero() {
             <input
               type="text"
               placeholder="Enter ZIP Code"
-              className="px-4 py-2 rounded-md text-sm font-[Inter] text-[#0A0F12] w-48 focus:outline-none shadow-[0_6px_12px_rgba(0,0,0,0.28)] bg-white/95"
+              className="px-4 py-2 rounded-md text-sm w-48 focus:outline-none border border-black/30 text-[#06061B] shadow-sm bg-white/95"
             />
             <button
-              className="btn-gold px-6 py-2 rounded-md text-sm font-medium"
+              className="px-6 py-2 rounded-md text-sm font-semibold text-[#06061B] bg-[#1A3D8F] hover:bg-[#101031]/90 transition-colors"
               type="button"
             >
               Get a Quote
@@ -166,7 +164,7 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Botones verticales (desktop) */}
+      {/* --- Vertical buttons (desktop) --- */}
       <div className="z-10 hidden md:flex flex-col gap-4 pr-4">
         {["auto", "home", "business"].map((key) => {
           const Icon =
@@ -177,11 +175,11 @@ export default function Hero() {
               key={key}
               onClick={() => handleSelect(key)}
               aria-label={key}
-              className={`btn-gold p-4 rounded-full transition-all flex items-center justify-center
+              className={`p-4 rounded-full transition-all flex items-center justify-center border-2
           ${
             isActive
-              ? "bg-[#E6C878] text-[#0A0F12] border-[#C8A048]"
-              : "bg-white/0 text-white/90 border-white/20 hover:bg-white/6"
+              ? "bg-[#1A3D8F] text-[#06061B] border-[#1A3D8F]"
+              : "bg-transparent text-white border-white/50 hover:bg-white/10"
           }`}
               type="button"
             >
