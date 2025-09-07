@@ -1,35 +1,39 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import { FaCarAlt, FaHome, FaBriefcase } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 
-const services = [
-  {
-    key: "auto",
-    title: "Auto Insurance",
-    description:
-      "Reliable coverage for personal and commercial vehicles to keep you moving forward.",
-    image: "/images/services/auto.jpg",
-  },
-  {
-    key: "home",
-    title: "Home Insurance",
-    description:
-      "Comprehensive protection for your house, apartment or rental property.",
-    image: "/images/services/home.jpg",
-  },
-  {
-    key: "business",
-    title: "Business Insurance",
-    description:
-      "Tailored policies to safeguard your company’s future, assets and staff.",
-    image: "/images/services/business.jpg",
-  },
-];
+import enHero from "@/locales/en/hero.json";
 
 export default function Hero() {
+  const texts = enHero; // inglés por defecto
+
+  const services = useMemo(
+    () => [
+      {
+        key: "auto",
+        title: texts.services.auto.title,
+        description: texts.services.auto.description,
+        image: "/images/services/auto.jpg",
+      },
+      {
+        key: "home",
+        title: texts.services.home.title,
+        description: texts.services.home.description,
+        image: "/images/services/home.jpg",
+      },
+      {
+        key: "business",
+        title: texts.services.business.title,
+        description: texts.services.business.description,
+        image: "/images/services/business.jpg",
+      },
+    ],
+    [texts]
+  );
+
   const [active, setActive] = useState("auto");
   const [isAuto, setIsAuto] = useState(true);
   const [instant, setInstant] = useState(false);
@@ -57,13 +61,11 @@ export default function Hero() {
       setActive(next);
     }, displayMs);
     return () => clearTimeout(id);
-  }, [active, isAuto, displayMs]);
+  }, [active, isAuto, displayMs, services]);
 
   useEffect(() => {
     return () => {
-      if (instantTimeoutRef.current) {
-        clearTimeout(instantTimeoutRef.current);
-      }
+      if (instantTimeoutRef.current) clearTimeout(instantTimeoutRef.current);
     };
   }, []);
 
@@ -81,7 +83,6 @@ export default function Hero() {
 
   return (
     <section className="h-[85vh] relative px-6 py-10 flex items-center justify-between overflow-hidden">
-      {/* --- Background --- */}
       <div className="absolute inset-0 -z-10">
         <Image
           src="/images/hero-bg.png"
@@ -93,7 +94,6 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#06061B]/80 to-[#101031]/90 backdrop-blur-sm" />
       </div>
 
-      {/* --- Main content --- */}
       <AnimatePresence mode="wait">
         <motion.div
           key={active}
@@ -103,7 +103,6 @@ export default function Hero() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: enterDur, ease }}
         >
-          {/* Title */}
           <motion.h1
             className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-left text-[#1A3D8F]"
             initial={{ opacity: 0, x: 40 }}
@@ -114,7 +113,6 @@ export default function Hero() {
             {current.title}
           </motion.h1>
 
-          {/* Description */}
           <motion.p
             className="text-base md:text-lg text-white font-normal text-left leading-relaxed"
             initial={{ opacity: 0, x: -30 }}
@@ -125,7 +123,6 @@ export default function Hero() {
             {current.description}
           </motion.p>
 
-          {/* Image */}
           <motion.div
             className="w-64 h-40 relative rounded-lg shadow-md overflow-hidden ml-8"
             initial={{ opacity: 0, scale: 0.96 }}
@@ -141,7 +138,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Input + button */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 items-center sm:items-start"
             initial={{ opacity: 0, y: 22 }}
@@ -151,36 +147,35 @@ export default function Hero() {
           >
             <input
               type="text"
-              placeholder="Enter ZIP Code"
+              placeholder={texts.zipPlaceholder}
               className="px-4 py-2 rounded-md text-sm w-48 focus:outline-none border border-black/30 text-[#06061B] shadow-sm bg-white/95"
             />
             <button
-              className="px-6 py-2 rounded-md text-sm font-semibold text-[#06061B] bg-[#1A3D8F] hover:bg-[#101031]/90 transition-colors"
+              className="px-6 py-2 rounded-md text-sm font-semibold text-white bg-[#1A3D8F] hover:bg-[#101031] transition-colors"
               type="button"
             >
-              Get a Quote
+              {texts.ctaButton}
             </button>
           </motion.div>
         </motion.div>
       </AnimatePresence>
 
-      {/* --- Vertical buttons (desktop) --- */}
       <div className="z-10 hidden md:flex flex-col gap-4 pr-4">
-        {["auto", "home", "business"].map((key) => {
+        {services.map((s) => {
           const Icon =
-            key === "auto" ? FaCarAlt : key === "home" ? FaHome : FaBriefcase;
-          const isActive = active === key;
+            s.key === "auto" ? FaCarAlt : s.key === "home" ? FaHome : FaBriefcase;
+          const isActive = active === s.key;
           return (
             <button
-              key={key}
-              onClick={() => handleSelect(key)}
-              aria-label={key}
+              key={s.key}
+              onClick={() => handleSelect(s.key)}
+              aria-label={s.key}
               className={`p-4 rounded-full transition-all flex items-center justify-center border-2
-          ${
-            isActive
-              ? "bg-[#1A3D8F] text-[#06061B] border-[#1A3D8F]"
-              : "bg-transparent text-white border-white/50 hover:bg-white/10"
-          }`}
+                ${
+                  isActive
+                    ? "bg-[#1A3D8F] text-white border-[#1A3D8F]"
+                    : "bg-transparent text-white border-white/50 hover:bg-white/10"
+                }`}
               type="button"
             >
               <Icon size={20} />

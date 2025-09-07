@@ -1,0 +1,18 @@
+{
+  "services": {
+    "auto": {
+      "title": "Seguro de Auto",
+      "description": "Cobertura confiable para vehículos personales y comerciales para mantenerte en movimiento."
+    },
+    "home": {
+      "title": "Seguro de Hogar",
+      "description": "Protección integral para tu casa, apartamento o propiedad en alquiler."
+    },
+    "business": {
+      "title": "Seguro de Negocios",
+      "description": "Pólizas a la medida para proteger el futuro, los activos y el personal de tu empresa."
+    }
+  },
+  "zipPlaceholder": "Introduce tu código postal",
+  "ctaButton": "Solicitar Cotización"
+}

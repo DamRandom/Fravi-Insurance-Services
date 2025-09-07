@@ -1,0 +1,18 @@
+{
+  "services": {
+    "auto": {
+      "title": "Auto Insurance",
+      "description": "Reliable coverage for personal and commercial vehicles to keep you moving forward."
+    },
+    "home": {
+      "title": "Home Insurance",
+      "description": "Comprehensive protection for your house, apartment or rental property."
+    },
+    "business": {
+      "title": "Business Insurance",
+      "description": "Tailored policies to safeguard your company’s future, assets and staff."
+    }
+  },
+  "zipPlaceholder": "Enter ZIP Code",
+  "ctaButton": "Get a Quote"
+}
