@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import "@/styles/variables.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { ServiceProvider } from "@/context/ServiceContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <LanguageProvider>
-          {children}
+          <ServiceProvider>
+            {children}
+          </ServiceProvider>
         </LanguageProvider>
       </body>
     </html>

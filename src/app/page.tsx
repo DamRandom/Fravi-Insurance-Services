@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import WhyUs from "@/components/WhyUs";
-import AboutUs from "@/components/AboutUs";
+import ServiceDetail from "@/components/ServiceDetail";
 import Services from "@/components/Services";
 
 export default function HomePage() {
@@ -11,7 +11,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <Hero />
-      <AboutUs />
+      <ServiceDetail />
       <WhyUs />
       <Services />
       <Testimonials />

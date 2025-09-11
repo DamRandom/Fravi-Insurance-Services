@@ -5,27 +5,33 @@ import Image from "next/image";
 import { FaCarAlt, FaHome, FaBriefcase } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { useLanguage } from "@/context/LanguageContext";
+import { useService, ServiceKey } from "@/context/ServiceContext";
 import enHero from "@/locales/en/hero.json";
+import esHero from "@/locales/es/hero.json";
 
 export default function Hero() {
-  const texts = enHero; // inglés por defecto
+  // language-aware texts (defaults controlled by LanguageContext)
+  const { lang } = useLanguage();
+  const texts = lang === "EN" ? enHero : esHero;
 
+  // --- Memoized slides (recreate only when texts changes) ---
   const services = useMemo(
     () => [
       {
-        key: "auto",
+        key: "auto" as ServiceKey,
         title: texts.services.auto.title,
         description: texts.services.auto.description,
         image: "/images/services/auto.jpg",
       },
       {
-        key: "home",
+        key: "home" as ServiceKey,
         title: texts.services.home.title,
         description: texts.services.home.description,
         image: "/images/services/home.jpg",
       },
       {
-        key: "business",
+        key: "business" as ServiceKey,
         title: texts.services.business.title,
         description: texts.services.business.description,
         image: "/images/services/business.jpg",
@@ -34,13 +40,23 @@ export default function Hero() {
     [texts]
   );
 
-  const [active, setActive] = useState("auto");
+  // --- local UI state ---
+  const [active, setActive] = useState<ServiceKey>("auto");
   const [isAuto, setIsAuto] = useState(true);
   const [instant, setInstant] = useState(false);
   const instantTimeoutRef = useRef<number | null>(null);
 
   const current = services.find((s) => s.key === active)!;
 
+  // --- service context (export the selected service) ---
+  const { setSelected } = useService();
+
+  // ensure context is updated every time active changes
+  useEffect(() => {
+    setSelected(active);
+  }, [active, setSelected]);
+
+  // compute display time based on reading time
   const computeDisplayMs = (title: string, description: string) => {
     const text = `${title} ${description}`.trim();
     const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
@@ -53,6 +69,7 @@ export default function Hero() {
 
   const displayMs = computeDisplayMs(current.title, current.description);
 
+  // auto-rotation (restarts only when deps change)
   useEffect(() => {
     if (!isAuto) return;
     const id = window.setTimeout(() => {
@@ -63,19 +80,24 @@ export default function Hero() {
     return () => clearTimeout(id);
   }, [active, isAuto, displayMs, services]);
 
+  // cleanup for instant timeout
   useEffect(() => {
     return () => {
-      if (instantTimeoutRef.current) clearTimeout(instantTimeoutRef.current);
+      if (instantTimeoutRef.current) {
+        clearTimeout(instantTimeoutRef.current);
+      }
     };
   }, []);
 
-  const handleSelect = (key: string) => {
+  // manual selection handler: stop auto-rotation and set active
+  const handleSelect = (key: ServiceKey) => {
     if (key === active) return;
     setActive(key);
     setIsAuto(false);
     setInstant(true);
     if (instantTimeoutRef.current) clearTimeout(instantTimeoutRef.current);
     instantTimeoutRef.current = window.setTimeout(() => setInstant(false), 300);
+    // setSelected(active) will be called by the useEffect that listens active -> setSelected(active)
   };
 
   const enterDur = instant ? 0.22 : 0.6;
@@ -96,7 +118,7 @@ export default function Hero() {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={active}
+          key={active + lang} // force re-render when language changes too
           className="z-10 max-w-[600px] w-full space-y-6 text-[#1A3D8F]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -130,12 +152,7 @@ export default function Hero() {
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: enterDur, delay: instant ? 0 : 0.02, ease }}
           >
-            <Image
-              src={current.image}
-              alt={current.title}
-              fill
-              className="object-cover"
-            />
+            <Image src={current.image} alt={current.title} fill className="object-cover" />
           </motion.div>
 
           <motion.div
@@ -162,8 +179,7 @@ export default function Hero() {
 
       <div className="z-10 hidden md:flex flex-col gap-4 pr-4">
         {services.map((s) => {
-          const Icon =
-            s.key === "auto" ? FaCarAlt : s.key === "home" ? FaHome : FaBriefcase;
+          const Icon = s.key === "auto" ? FaCarAlt : s.key === "home" ? FaHome : FaBriefcase;
           const isActive = active === s.key;
           return (
             <button
@@ -171,11 +187,7 @@ export default function Hero() {
               onClick={() => handleSelect(s.key)}
               aria-label={s.key}
               className={`p-4 rounded-full transition-all flex items-center justify-center border-2
-                ${
-                  isActive
-                    ? "bg-[#1A3D8F] text-white border-[#1A3D8F]"
-                    : "bg-transparent text-white border-white/50 hover:bg-white/10"
-                }`}
+                ${isActive ? "bg-[#1A3D8F] text-white border-[#1A3D8F]" : "bg-transparent text-white border-white/50 hover:bg-white/10"}`}
               type="button"
             >
               <Icon size={20} />

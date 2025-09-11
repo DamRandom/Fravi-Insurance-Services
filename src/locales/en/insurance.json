@@ -1,0 +1,23 @@
+{
+  "auto": {
+    "title": "Auto Insurance",
+    "paragraphs": [
+      "Peace of mind behind the wheel. At <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span>, we understand that your safety and that of your passengers is essential. That’s why we offer auto insurance plans designed to protect you in the event of accidents, breakdowns, or unexpected events on the road.",
+      "We work with the best providers in Florida, Texas, and Virginia to guarantee coverage that fits your budget, without compromising protection. From basic liability to complete coverage, we adapt our policies to your needs so you can drive with total confidence."
+    ]
+  },
+  "home": {
+    "title": "Home Insurance",
+    "paragraphs": [
+      "Your home is one of your most valuable assets, and protecting it is our priority. With <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span>, you can count on home insurance that covers everything from natural disasters to unexpected damage and theft.",
+      "We provide flexible and affordable policies so you can live with peace of mind, knowing your investment and your family are safe. Get a personalized quote and discover why thousands of clients trust us to protect their homes."
+    ]
+  },
+  "business": {
+    "title": "Business Insurance",
+    "paragraphs": [
+      "Your business deserves protection equal to the effort you put into it. At <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span>, we offer commercial insurance that shields you from risks, legal responsibilities, and unforeseen events that could affect your company.",
+      "Our policies are designed to adapt to businesses of all sizes, giving you financial security and stability. Let us take care of your protection so you can focus on growing your business."
+    ]
+  }
+}

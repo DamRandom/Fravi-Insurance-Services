@@ -1,0 +1,23 @@
+{
+  "auto": {
+    "title": "Seguro de Auto",
+    "paragraphs": [
+      "Tranquilidad al volante. En <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span> entendemos que tu seguridad y la de tus acompañantes es fundamental. Por eso ofrecemos planes de seguro de auto diseñados para protegerte ante accidentes, averías o imprevistos en el camino.",
+      "Trabajamos con los mejores proveedores en Florida, Texas y Virginia para garantizarte una cobertura que se ajuste a tu presupuesto sin comprometer tu protección. Desde responsabilidad básica hasta cobertura completa, adaptamos nuestras pólizas a tus necesidades para que conduzcas con total confianza."
+    ]
+  },
+  "home": {
+    "title": "Seguro de Hogar",
+    "paragraphs": [
+      "Tu hogar es uno de tus bienes más valiosos, y protegerlo es nuestra prioridad. Con <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span> cuentas con un seguro de hogar que cubre desde desastres naturales hasta daños inesperados y robos.",
+      "Ofrecemos pólizas flexibles y accesibles para que vivas con la tranquilidad de saber que tu inversión y tu familia están protegidas. Solicita una cotización personalizada y descubre por qué miles de clientes confían en nosotros para cuidar de sus hogares."
+    ]
+  },
+  "business": {
+    "title": "Seguro de Negocio",
+    "paragraphs": [
+      "Tu negocio merece una protección a la altura del esfuerzo que dedicas. En <span class='font-semibold text-[var(--color-accent)]'>Fravi Insurance Service</span> ofrecemos seguros comerciales que te resguardan de riesgos, responsabilidades legales e imprevistos que puedan afectar a tu empresa.",
+      "Nuestras pólizas están diseñadas para adaptarse a compañías de todos los tamaños, brindándote estabilidad y seguridad financiera. Permítenos ocuparnos de tu protección, mientras tú te concentras en hacer crecer tu negocio."
+    ]
+  }
+}
